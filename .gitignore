@@ -1,0 +1,111 @@
+# --- Maven / Java ---
+backend/target/
+*.class
+*.jar
+*.war
+hs_err_pid*
+
+# --- Secretos y configuración local (NUNCA al repositorio) ---
+application-local.properties
+application-local.yml
+.env
+.env.*
+!.env.example
+*.pem
+*-firebase-adminsdk-*.json
+serviceAccountKey.json
+
+# --- IDEs ---
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+*.code-workspace
+
+# --- Sistema operativo ---
+.DS_Store
+Thumbs.db
+
+# --- Frontend (Parte 2) ---
+frontend/node_modules/
+frontend/dist/
+
+# --- Logs y temporales ---
+*.log
+*.tmp
+# PixelVault – Tienda online de videojuegos
+
+Proyecto en parejas de *Programación Web Avanzada*. **Versión 1: API REST con Spring Boot, datos en memoria.**
+
+## Pareja y ramas
+
+| Persona | Nombre | Rama |
+|---|---|---|
+| A | _(tu nombre)_ | `persona-a` |
+| B | _(nombre de tu compañero/a)_ | `persona-b` |
+
+Ramas de integración: `develop` (trabajo conjunto) y `main` (versiones entregadas, con etiqueta `v1`).
+
+## Nombres propios de la temática
+
+| Genérico | En PixelVault | Atributos propios |
+|---|---|---|
+| `Producto` | `Videojuego` | `plataforma` (PC, PS5, XBOX, SWITCH), `pegi` (3, 7, 12, 16, 18) |
+| `Categoria` | `Genero` | – |
+
+En la API se mantienen las rutas del enunciado (`/api/productos`, `/api/categorias`) y los campos `categoria`/`categoriaId`.
+
+## Estructura
+
+```
+backend/        API Spring Boot (Maven, Java 21)
+docs/           api.md, memorias/ (PDF y fuentes)
+postman/        colección de pruebas
+frontend/       (Parte 2, vacío por ahora)
+```
+
+## Cómo arrancar
+
+Requisitos: JDK 21 y Maven 3.9+.
+
+1. Copia la plantilla de configuración privada:
+   ```bash
+   cp backend/src/main/resources/application-example.properties backend/src/main/resources/application-local.properties
+   ```
+2. Edita `application-local.properties` y pon en `tienda.jwt.secret` una cadena aleatoria de 32+ caracteres (`openssl rand -base64 48`). Este fichero está en `.gitignore`: no se sube.
+3. Arranca:
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
+4. La API queda en `http://localhost:8080`. Los datos viven en memoria y se pierden al reiniciar.
+
+Tests: `cd backend && mvn test`.
+
+## Usuarios de prueba
+
+Se crean al arrancar (son credenciales de demostración, los datos no persisten):
+
+| Rol | Correo | Contraseña |
+|---|---|---|
+| CLIENTE | `cliente@pixelvault.com` | `Cliente123!` |
+| ADMIN | `admin@pixelvault.com` | `Admin12345!` |
+
+Los administradores se definen en `tienda.admins` (`application.properties`).
+
+## Configuración (`application.properties`)
+
+`tienda.admins`, `tienda.envio.coste`, `tienda.envio.gratis-desde`, `tienda.carrito.max-unidades-por-producto`, `tienda.jwt.expiracion-minutos`. El secreto `tienda.jwt.secret` va solo en `application-local.properties`.
+
+## Pruebas con Postman
+
+Importa `postman/PixelVault.postman_collection.json`. La carpeta *00 Auth* hace login y guarda el JWT en las variables `tokenCliente` y `tokenAdmin`. Las peticiones que deben fallar (400, 401, 403, 404, 409) están incluidas.
+
+## Documentación
+
+- Endpoints: [`docs/api.md`](docs/api.md)
+- Memoria: `docs/memorias/`
+- Convención de commits: Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, `test:`, `refactor:`).
+
