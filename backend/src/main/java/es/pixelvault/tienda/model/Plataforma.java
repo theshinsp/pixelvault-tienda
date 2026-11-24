@@ -1,4 +1,4 @@
-package es.pixelvault.tienda.models;
+package es.pixelvault.tienda.model;
 
 /** Atributo propio de la temática: plataforma en la que se juega el videojuego. */
 public enum Plataforma {
