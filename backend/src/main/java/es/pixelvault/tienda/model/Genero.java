@@ -1,4 +1,4 @@
-package es.pixelvault.tienda.models;
+package es.pixelvault.tienda.model;
 
 /** Categoría de la tienda. En PixelVault las categorías son géneros de videojuego. */
 

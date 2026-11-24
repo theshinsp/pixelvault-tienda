@@ -1,4 +1,4 @@
-package es.pixelvault.tienda.models;
+package es.pixelvault.tienda.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
