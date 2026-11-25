@@ -56,7 +56,7 @@ public class GeneroService {
     public Genero obtenerEntidad(Long id) {
         Genero genero = id == null ? null : generos.get(id);
         if (genero == null) {
-            throw new RecursoNoEncontradoException("No existe ninguna categoría con id " + id);
+            throw new RecursoNoEncontradoException("No existe ninguna categoría con id" + id);
         }
         return genero;
     }
